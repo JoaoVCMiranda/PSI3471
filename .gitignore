@@ -1,3 +1,11 @@
 entregas/**/*.o
 entregas/**/*.out
 entregas/**/*.ppm
+
+# git worktrees
+worktrees/
+
+# arquivos de dados grandes
+assets/**/*.h5
+assets/**/*.keras
+assets/**/*.zip
