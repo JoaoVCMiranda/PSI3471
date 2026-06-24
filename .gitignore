@@ -9,3 +9,9 @@ worktrees/
 assets/**/*.h5
 assets/**/*.keras
 assets/**/*.zip
+
+# ambiente e cache Python
+.venv/
+**/__pycache__/
+*.keras
+*.h5

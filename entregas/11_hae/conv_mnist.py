@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # /// script
-# requires-python = ">=3.11"
+# requires-python = ">=3.12"
 # dependencies = [
-#   "tensorflow",
+#   "tensorflow[and-cuda]>=2.16",
 #   "matplotlib",
 #   "scikit-learn",
 #   "pillow",
@@ -43,10 +43,12 @@ RESULTADOS = os.path.join(RAIZ, 'resultados')
 (AX, AY), (QX, QY) = mnist.load_data()
 nl, nc = AX.shape[1], AX.shape[2]
 
-AX = AX.astype('float32') / 255.0 - 0.5
-QX = QX.astype('float32') / 255.0 - 0.5
-AX = np.expand_dims(AX, axis=3)
-QX = np.expand_dims(QX, axis=3)
+# cnn3.keras foi treinado com pixels invertidos (255-x) — mantemos dois tensores:
+# QX_inv para avaliar o modelo pré-treinado, QX para treinar do zero
+AX_inv = np.expand_dims((255 - AX).astype('float32') / 255.0 - 0.5, axis=3)
+QX_inv = np.expand_dims((255 - QX).astype('float32') / 255.0 - 0.5, axis=3)
+AX = np.expand_dims(AX.astype('float32') / 255.0 - 0.5, axis=3)
+QX = np.expand_dims(QX.astype('float32') / 255.0 - 0.5, axis=3)
 
 nclasses = 10
 AY2 = keras.utils.to_categorical(AY, nclasses)
@@ -62,7 +64,7 @@ print('\n=== 1. Modelo pré-treinado (cnn3.keras) ===')
 model = keras.models.load_model(os.path.join(ASSETS, 'cnn3.keras'))
 model.summary()
 
-score_pretrained = model.evaluate(QX, QY2, verbose=False)
+score_pretrained = model.evaluate(QX_inv, QY2, verbose=False)
 print(f'Acurácia de teste: {score_pretrained[1]*100:.2f}%')
 print(f'Erro de teste:     {(1-score_pretrained[1])*100:.2f}%')
 
@@ -105,7 +107,7 @@ with zipfile.ZipFile(zip_path) as zf:
     for nome in nomes_arquivo:
         with zf.open(nome) as f:
             img = Image.open(io.BytesIO(f.read())).convert('L').resize((28, 28))
-            arr = np.array(img, dtype='float32') / 255.0 - 0.5
+            arr = (255 - np.array(img, dtype='float32')) / 255.0 - 0.5
             imagens.append(arr)
 
 fig, axes = plt.subplots(2, 21, figsize=(21, 3))
@@ -214,7 +216,7 @@ print('Matriz de confusão salva: resultados/matriz_confusao.png')
 # Resumo
 # =============================================================================
 nerro_pretrained = int(np.count_nonzero(np.argmax(
-    model.predict(QX, verbose=False), axis=1) - QY))
+    model.predict(QX_inv, verbose=False), axis=1) - QY))
 nerro_novo       = int(np.count_nonzero(QP - QY))
 
 print('\n========================================')
