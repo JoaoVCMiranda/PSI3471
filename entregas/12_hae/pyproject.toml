@@ -1,0 +1,11 @@
+[project]
+name = "12-hae-cifar"
+version = "0.1.0"
+description = "CIFAR-10 com modelos pre-treinados e data augmentation"
+requires-python = ">=3.11"
+dependencies = [
+    "tensorflow",
+    "matplotlib",
+    "scikit-learn",
+    "pillow",
+]
