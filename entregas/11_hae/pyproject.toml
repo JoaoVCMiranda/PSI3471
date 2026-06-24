@@ -2,9 +2,9 @@
 name = "11-hae-conv"
 version = "0.1.0"
 description = "CNN LeNet para classificacao MNIST"
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 dependencies = [
-    "tensorflow",
+    "tensorflow[and-cuda]>=2.16",
     "matplotlib",
     "scikit-learn",
     "pillow",

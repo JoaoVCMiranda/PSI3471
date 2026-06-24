@@ -1,3 +1,7 @@
 entregas/**/*.o
 entregas/**/*.out
 entregas/**/*.ppm
+.venv/
+**/__pycache__/
+*.keras
+*.h5

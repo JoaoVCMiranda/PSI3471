@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # /// script
-# requires-python = ">=3.11"
+# requires-python = ">=3.12"
 # dependencies = [
-#   "tensorflow",
+#   "tensorflow[and-cuda]>=2.16",
 #   "matplotlib",
 #   "scikit-learn",
 #   "pillow",
