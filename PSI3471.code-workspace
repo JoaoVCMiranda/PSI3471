@@ -1,0 +1,190 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "worktrees/entrega-11-12"
+    }
+  ],
+  "settings": {
+    "git.detectSubmodules": false,
+    "git.ignoredRepositories": [],
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+      "pyproject.toml": "uv.lock, .python-version, .venv",
+      "*.py": "${capture}.ipynb"
+    },
+    "terminal.integrated.defaultProfile.linux": "zsh"
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Worktree: merge no master",
+        "type": "shell",
+        "command": "read -p 'Worktree a mergear (ex: 11-12): ' par && git merge entrega/$par",
+        "options": {
+          "cwd": "${workspaceFolder:PSI3471 (master)}"
+        },
+        "presentation": {
+          "reveal": "always",
+          "panel": "shared",
+          "group": "worktrees"
+        },
+        "group": "none",
+        "problemMatcher": []
+      },
+      {
+        "label": "Worktree: listar árvores",
+        "type": "shell",
+        "command": "git worktree list",
+        "options": {
+          "cwd": "${workspaceFolder:PSI3471 (master)}"
+        },
+        "presentation": {
+          "reveal": "always",
+          "panel": "shared",
+          "group": "worktrees"
+        },
+        "group": "none"
+      },
+      {
+        "label": "Worktree: status entrega-11-12",
+        "type": "shell",
+        "command": "git status",
+        "options": {
+          "cwd": "${workspaceFolder:Entrega 11-12 — CNN / CIFAR}"
+        },
+        "presentation": {
+          "reveal": "always",
+          "panel": "shared",
+          "group": "worktrees"
+        },
+        "group": "none"
+      },
+      {
+        "label": "Worktree: status entrega-13-14",
+        "type": "shell",
+        "command": "git status",
+        "options": {
+          "cwd": "${workspaceFolder:Entrega 13-14 — Redes Avançadas / Transfer}"
+        },
+        "presentation": {
+          "reveal": "always",
+          "panel": "shared",
+          "group": "worktrees"
+        },
+        "group": "none"
+      },
+      {
+        "label": "Entrega 11: executar conv_mnist.py",
+        "type": "shell",
+        "command": "uv run conv_mnist.py",
+        "options": {
+          "cwd": "${workspaceFolder:Entrega 11-12 — CNN / CIFAR}/entregas/11_hae"
+        },
+        "presentation": {
+          "reveal": "always",
+          "panel": "dedicated",
+          "group": "run"
+        },
+        "group": {
+          "kind": "build",
+          "isDefault": false
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "Entrega 12: executar cifar_pretrained.py",
+        "type": "shell",
+        "command": "uv run cifar_pretrained.py",
+        "options": {
+          "cwd": "${workspaceFolder:Entrega 11-12 — CNN / CIFAR}/entregas/12_hae"
+        },
+        "presentation": {
+          "reveal": "always",
+          "panel": "dedicated",
+          "group": "run"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "Entrega 13: executar redes_avancadas.py",
+        "type": "shell",
+        "command": "uv run redes_avancadas.py",
+        "options": {
+          "cwd": "${workspaceFolder:Entrega 13-14 — Redes Avançadas / Transfer}/entregas/13_hae"
+        },
+        "presentation": {
+          "reveal": "always",
+          "panel": "dedicated",
+          "group": "run"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "Entrega 14: executar transfer_learning.py",
+        "type": "shell",
+        "command": "uv run transfer_learning.py",
+        "options": {
+          "cwd": "${workspaceFolder:Entrega 13-14 — Redes Avançadas / Transfer}/entregas/14_hae"
+        },
+        "presentation": {
+          "reveal": "always",
+          "panel": "dedicated",
+          "group": "run"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "Setup: uv init + deps (11_hae)",
+        "type": "shell",
+        "command": "uv init --name 11-hae-conv && uv add cekeikon tensorflow",
+        "options": {
+          "cwd": "${workspaceFolder:Entrega 11-12 — CNN / CIFAR}/entregas/11_hae"
+        },
+        "presentation": { "reveal": "always", "panel": "shared" },
+        "problemMatcher": []
+      },
+      {
+        "label": "Setup: uv init + deps (12_hae)",
+        "type": "shell",
+        "command": "uv init --name 12-hae-cifar && uv add cekeikon tensorflow",
+        "options": {
+          "cwd": "${workspaceFolder:Entrega 11-12 — CNN / CIFAR}/entregas/12_hae"
+        },
+        "presentation": { "reveal": "always", "panel": "shared" },
+        "problemMatcher": []
+      },
+      {
+        "label": "Setup: uv init + deps (13_hae)",
+        "type": "shell",
+        "command": "uv init --name 13-hae-redes && uv add cekeikon tensorflow",
+        "options": {
+          "cwd": "${workspaceFolder:Entrega 13-14 — Redes Avançadas / Transfer}/entregas/13_hae"
+        },
+        "presentation": { "reveal": "always", "panel": "shared" },
+        "problemMatcher": []
+      },
+      {
+        "label": "Setup: uv init + deps (14_hae)",
+        "type": "shell",
+        "command": "uv init --name 14-hae-transfer && uv add cekeikon tensorflow",
+        "options": {
+          "cwd": "${workspaceFolder:Entrega 13-14 — Redes Avançadas / Transfer}/entregas/14_hae"
+        },
+        "presentation": { "reveal": "always", "panel": "shared" },
+        "problemMatcher": []
+      }
+    ]
+  },
+  "extensions": {
+    "recommendations": [
+      "ms-python.python",
+      "ms-python.vscode-pylance",
+      "mhutchie.git-graph",
+      "eamodio.gitlens"
+    ]
+  }
+}
